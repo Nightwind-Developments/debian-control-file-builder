@@ -1,0 +1,4 @@
+libopencv-videoio4.2
+libgtkmm-3.0-1v5
+ffmpeg
+v4l-utils
