@@ -27,3 +27,4 @@ runs:
     - ${{ inputs.config-file }}
     - -d
     - ${{ inputs.deps-file }}
+    - "This should fail"
