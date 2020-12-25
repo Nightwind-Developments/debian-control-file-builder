@@ -25,34 +25,21 @@ class MandatoryKeyNotFoundError(Exception):
 # Debian Control Class
 class DebControl:
 
+    # Argument Parameter Keys
     CONFIG_FILE_ARG = "config_file"
 
+    # File Names
     CTRL_FILE_NAME = "Control"
 
+    # Keywords
     DEPENDS_KEYWORD = "Depends"
 
+    # Commonly Used Syntax within File
     COLON = ": "
     COMMA = ", "
 
-    MK_PACKAGE = 0
-    MK_VERSION = 1
-    MK_ARCH = 2
-    MK_MAINTAIN = 3
-    MK_DESCRIPTION = 4
     MANDATORY_KEYS = ["Package", "Version", "Architecture", "Maintainer", "Description"]
     OTHER_DATA_KEYS = list()
-
-    """# Default Class Constructor
-    def __init__(self, name, ver, arch, maint, des):
-        self.dependencies = list()
-        self.data = dict()
-
-        self.data[self.MANDATORY_KEYS[self.MK_PACKAGE]] = name
-        self.data[self.MANDATORY_KEYS[self.MK_VERSION]] = ver
-        self.data[self.MANDATORY_KEYS[self.MK_ARCH]] = arch
-        self.data[self.MANDATORY_KEYS[self.MK_MAINTAIN]] = maint
-        self.data[self.MANDATORY_KEYS[self.MK_DESCRIPTION]] = des
-    """
 
     # Class Constructor
     def __init__(self, **named_args):
