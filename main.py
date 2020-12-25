@@ -4,6 +4,12 @@ import shutil
 import click
 
 
+# Makes a new directory if it does not exist
+def mkdir_if_not_exist(path):
+    if not os.path.exists(path):
+        os.mkdir(path)
+
+
 # Mandatory Keys Not Found Error/Exception
 class MandatoryKeyNotFoundError(Exception):
 
@@ -15,14 +21,22 @@ class MandatoryKeyNotFoundError(Exception):
 # Debian Control Class
 class DebControl:
 
+    CTRL_FILE_NAME = "Control"
+
+    DEPENDS_KEYWORD = "Depends"
+
+    COLON = ": "
+    COMMA = ", "
+
     MK_PACKAGE = 0
     MK_VERSION = 1
     MK_ARCH = 2
     MK_MAINTAIN = 3
     MK_DESCRIPTION = 4
     MANDATORY_KEYS = ["Package", "Version", "Architecture", "Maintainer", "Description"]
+    OTHER_DATA_KEYS = list()
 
-    # Default Class Constructor
+    """# Default Class Constructor
     def __init__(self, name, ver, arch, maint, des):
         self.dependencies = list()
         self.data = dict()
@@ -32,6 +46,7 @@ class DebControl:
         self.data[self.MANDATORY_KEYS[self.MK_ARCH]] = arch
         self.data[self.MANDATORY_KEYS[self.MK_MAINTAIN]] = maint
         self.data[self.MANDATORY_KEYS[self.MK_DESCRIPTION]] = des
+    """
 
     # Class Constructor for JSON file
     def __init__(self, config_file_path):
@@ -49,6 +64,7 @@ class DebControl:
 
         self.data = temp_dict
         self.dependencies = list()
+        self.OTHER_DATA_KEYS = [x for x in self.data.keys() if x not in self.MANDATORY_KEYS]
 
     # Parses Dependency File to Save Dependencies
     def parse_deps_file(self, deps_list_file_path):
@@ -61,4 +77,25 @@ class DebControl:
         except IOError:
             print("Dependency File not found")
             exit(-2)
+
+    # Builds Debian Control File
+    def build_control_file(self, output_path):
+        mkdir_if_not_exist(output_path)
+        output_path_full = output_path + self.CTRL_FILE_NAME
+        build_file = open(output_path_full, "w")
+
+        # Writes Mandatory Configurations First
+        for i in self.MANDATORY_KEYS:
+            line = i + self.COLON + self.data[i]
+            build_file.write(line)
+
+        # Writes Required Dependencies
+        deps_line = self.COMMA.join(self.dependencies)
+        deps_line_full = self.DEPENDS_KEYWORD + self.COLON + deps_line
+        build_file.write(deps_line_full)
+
+        # Writes Other Configurations Last
+        for i in self.OTHER_DATA_KEYS:
+            line = i + self.COLON + self.data[i]
+            build_file.write(line)
 
