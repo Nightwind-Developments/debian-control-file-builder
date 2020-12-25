@@ -48,7 +48,7 @@ class DebControl:
     DEP_FILE_ARG = "deps_file"
 
     # File Names
-    CTRL_FILE_NAME = "Control"
+    CTRL_FILE_NAME = "control"
 
     # Default Paths
     OUTPUT_DEFAULT = "output/"
