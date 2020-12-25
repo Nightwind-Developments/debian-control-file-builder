@@ -1,6 +1,7 @@
 #!/bin/sh -l
 
 # The following script was referenced from: https://stackoverflow.com/questions/192249/how-do-i-parse-command-line-arguments-in-bash
+# And here: https://gist.github.com/jehiah/855086
 
 while [ "$1" != "" ]
 do
@@ -19,6 +20,8 @@ case $key in
     ;;
     *)
       echo "ERROR: Invalid parameter key (\"$key\")"
+      usage
+      exit 1
 esac
 done
 

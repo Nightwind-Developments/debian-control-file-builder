@@ -23,5 +23,7 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - f ${{ inputs.config-file }}
-    - -d ${{ inputs.deps-file }}
+    - -f
+    - ${{ inputs.config-file }}
+    - -d
+    - ${{ inputs.deps-file }}
