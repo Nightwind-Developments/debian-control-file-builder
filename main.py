@@ -1,7 +1,12 @@
 import json
 import os
 import shutil
+import sys
 import click
+
+# App Details
+APP_NAME = "Debian Control File Builder"
+APP_AUTHOR = "Nightwind Developments"
 
 PREFIX_ARGS = "--"
 RAW_ARGS = "config"
@@ -38,6 +43,7 @@ class DebControl:
 
     # Argument Parameter Keys
     CONFIG_FILE_ARG = "file"
+    DEP_FILE_ARG = "deps_file"
 
     # File Names
     CTRL_FILE_NAME = "Control"
@@ -100,10 +106,10 @@ class DebControl:
     def parse_deps_file(self, deps_list_file_path):
         try:
             with open(deps_list_file_path) as deps_file:
-                dep_entry = deps_file.readline()
+                dep_entry = deps_file.readline().rstrip()
                 while dep_entry:
                     self.dependencies.append(dep_entry)
-                    dep_entry = deps_file.readline()
+                    dep_entry = deps_file.readline().rstrip()
         except IOError:
             print("Dependency File not found")
             exit(-2)
@@ -132,21 +138,29 @@ class DebControl:
 # Main Function to Run on Start
 @click.command()
 @click.option('-f', PREFIX_ARGS + DebControl.CONFIG_FILE_ARG, type=click.Path(exists=True, file_okay=True))
+@click.option('-df', PREFIX_ARGS + DebControl.DEP_FILE_ARG, type=click.Path(exists=True, file_okay=True))
 @click.option('-c', PREFIX_ARGS + RAW_ARGS, type=(str, str), multiple=True)
-def main(file, config):
-    print("Debian Control File Builder:")
+def main(file, config, deps_file):
+    print("'{}' by {}".format(APP_NAME, APP_AUTHOR))
     if file:
         gen = DebControl(file=file)
-    else:
-        print("Configuration Data from Inputted Arguments")
+    elif config:
+        print("Configuration Data from Inputted Arguments:")
         temp_dict = dict()
         for pair in config:
             key = pair[0]
             content = pair[1]
             temp_dict[key] = content
             print("\t* " + key + ": " + content)
-
         gen = DebControl(**temp_dict)
+    else:
+        gen = None
+        print("Error: Required Parameters not filled")
+        print("Program exiting...")
+        sys.exit("Error: Required Parameters not filled.")
+
+    if deps_file:
+        gen.parse_deps_file(deps_file)
 
     gen.build_control_file()
 
