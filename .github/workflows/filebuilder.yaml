@@ -11,16 +11,16 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Set Up Python
-        uses: actions/setup-python@v2
+    
+      - name: Action Test
+        uses: ./
         with:
-          python-version: 3.8
-          
-      - name: Display Python Version
-        run: python -c "import sys; print(sys.version)"
-
-      - name: Install Python Dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          config-file: 'ExampleFiles/example_control_template.json'
+          deps-file: 'ExampleFiles/product_deps.txt'
+        
+      - name: Upload Generated Control File
+        uses: actions/upload-artifact@v2
+        with:
+          name: generated-control-file
+          path: output/control
+          if-no-files-found: error
