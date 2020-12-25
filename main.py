@@ -13,13 +13,19 @@ def mkdir_if_not_exist(path):
 # Mandatory Keys Not Found Error/Exception
 class MandatoryKeyNotFoundError(Exception):
 
-    def __init__(self, missing_keys):
+    def __init__(self, missing_keys, is_json):
         self.missing_keys = missing_keys
-        self.message = "The Following Keys were missing: " + self.missing_keys
+        if is_json:
+            self.message = "[In JSON File]"
+        else:
+            self.message = "[In Parameters]"
+        self.message += " The Following Keys were missing: " + self.missing_keys
 
 
 # Debian Control Class
 class DebControl:
+
+    CONFIG_FILE_ARG = "config_file"
 
     CTRL_FILE_NAME = "Control"
 
@@ -48,11 +54,20 @@ class DebControl:
         self.data[self.MANDATORY_KEYS[self.MK_DESCRIPTION]] = des
     """
 
-    # Class Constructor for JSON file
-    def __init__(self, config_file_path):
-        json_file = open(config_file_path)
-        temp_dict = json.load(json_file)
-        temp_dict_keys = temp_dict.keys()
+    # Class Constructor
+    def __init__(self, **named_args):
+
+        config_file_path = named_args[self.CONFIG_FILE_ARG]
+
+        # JSON Configuration File Case
+        if config_file_path:
+            json_file = open(config_file_path)
+            temp_dict = json.load(json_file)
+            temp_dict_keys = temp_dict.keys()
+        # Parameters Case
+        else:
+            temp_dict_keys = named_args.keys()
+            temp_dict = named_args
 
         # Ensures Imported List Contains at minimum the Mandatory Keys
         mk_not_found = list()
@@ -60,10 +75,15 @@ class DebControl:
             if mk not in temp_dict_keys:
                 mk_not_found.append(mk)
         if mk_not_found:
-            raise MandatoryKeyNotFoundError(mk_not_found)
+            raise MandatoryKeyNotFoundError(mk_not_found, bool(config_file_path))
 
+        # Saves Configuration Data
         self.data = temp_dict
+
+        # Initialises Dependencies List
         self.dependencies = list()
+
+        # Saves Non-Mandatory Keys
         self.OTHER_DATA_KEYS = [x for x in self.data.keys() if x not in self.MANDATORY_KEYS]
 
     # Parses Dependency File to Save Dependencies
