@@ -1,5 +1,8 @@
 name: 'Debian Control File Builder'
 description: 'Generate a control file for to be used in the generation of a Debian install package.'
+branding:
+  icon: 'file'
+  color: 'gray-dark'
 
 inputs:
   # Configuration File Path
