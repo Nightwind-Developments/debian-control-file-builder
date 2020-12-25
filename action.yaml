@@ -1,1 +1,17 @@
+name: 'Debian Control File Builder'
+description: 'Generate a control file for to be used in the generation of a Debian install package.'
 
+inputs:
+  # Configuration File Path
+  config-file:
+    description: 'Path to configuration file in JSON format'
+    required: true
+  # Dependency File Path
+  deps-file:
+    description: 'Path to the file with the list of dependencies to include in the generated control file'
+    required: false
+  # Desired Output Path
+  output:
+    description: 'The path to where the generated control file will be saved'
+    required: false
+    default: "${{ github.workspace }}/output/"
