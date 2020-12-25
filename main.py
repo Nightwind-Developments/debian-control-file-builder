@@ -3,6 +3,9 @@ import os
 import shutil
 import click
 
+PREFIX_ARGS = "--"
+RAW_ARGS = "config"
+
 
 # Makes a new directory if it does not exist
 def mkdir_if_not_exist(path):
@@ -19,17 +22,28 @@ class MandatoryKeyNotFoundError(Exception):
             self.message = "[In JSON File]"
         else:
             self.message = "[In Parameters]"
-        self.message += " The Following Keys were missing: " + self.missing_keys
+        self.message += " The Following Keys were missing: " + str(self.missing_keys)
+        super().__init__(self.message)
+
+
+class InvalidParameters(Exception):
+
+    def __init__(self):
+        self.message = "Uneven amount of parameters. Perhaps you missed an argument or value"
+        super().__init__(self.message)
 
 
 # Debian Control Class
 class DebControl:
 
     # Argument Parameter Keys
-    CONFIG_FILE_ARG = "config_file"
+    CONFIG_FILE_ARG = "file"
 
     # File Names
     CTRL_FILE_NAME = "Control"
+
+    # Default Paths
+    OUTPUT_DEFAULT = "output/"
 
     # Keywords
     DEPENDS_KEYWORD = "Depends"
@@ -38,17 +52,23 @@ class DebControl:
     COLON = ": "
     COMMA = ", "
 
+    # Constant Data Keys
+    MK_PACKAGE = 0
+    MK_VERSION = 1
+    MK_ARCH = 2
+    MK_MAINTAIN = 3
+    MK_DESCRIPTION = 4
     MANDATORY_KEYS = ["Package", "Version", "Architecture", "Maintainer", "Description"]
     OTHER_DATA_KEYS = list()
 
     # Class Constructor
     def __init__(self, **named_args):
 
-        config_file_path = named_args[self.CONFIG_FILE_ARG]
+        is_config_file = self.CONFIG_FILE_ARG in named_args
 
         # JSON Configuration File Case
-        if config_file_path:
-            json_file = open(config_file_path)
+        if is_config_file:
+            json_file = open(named_args[self.CONFIG_FILE_ARG])
             temp_dict = json.load(json_file)
             temp_dict_keys = temp_dict.keys()
         # Parameters Case
@@ -62,7 +82,7 @@ class DebControl:
             if mk not in temp_dict_keys:
                 mk_not_found.append(mk)
         if mk_not_found:
-            raise MandatoryKeyNotFoundError(mk_not_found, bool(config_file_path))
+            raise MandatoryKeyNotFoundError(mk_not_found, bool(is_config_file))
 
         # Saves Configuration Data
         self.data = temp_dict
@@ -72,6 +92,9 @@ class DebControl:
 
         # Saves Non-Mandatory Keys
         self.OTHER_DATA_KEYS = [x for x in self.data.keys() if x not in self.MANDATORY_KEYS]
+
+    def generate_line_from_data(self, key):
+        return str(key + self.COLON + self.data[key] + "\n")
 
     # Parses Dependency File to Save Dependencies
     def parse_deps_file(self, deps_list_file_path):
@@ -86,23 +109,48 @@ class DebControl:
             exit(-2)
 
     # Builds Debian Control File
-    def build_control_file(self, output_path):
+    def build_control_file(self, output_path=OUTPUT_DEFAULT):
         mkdir_if_not_exist(output_path)
         output_path_full = output_path + self.CTRL_FILE_NAME
         build_file = open(output_path_full, "w")
 
         # Writes Mandatory Configurations First
         for i in self.MANDATORY_KEYS:
-            line = i + self.COLON + self.data[i]
-            build_file.write(line)
+            build_file.write(self.generate_line_from_data(i))
 
         # Writes Required Dependencies
-        deps_line = self.COMMA.join(self.dependencies)
-        deps_line_full = self.DEPENDS_KEYWORD + self.COLON + deps_line
-        build_file.write(deps_line_full)
+        if self.dependencies:
+            deps_line = self.COMMA.join(self.dependencies)
+            deps_line_full = self.DEPENDS_KEYWORD + self.COLON + deps_line
+            build_file.write(deps_line_full)
 
         # Writes Other Configurations Last
         for i in self.OTHER_DATA_KEYS:
-            line = i + self.COLON + self.data[i]
-            build_file.write(line)
+            build_file.write(self.generate_line_from_data(i))
 
+
+# Main Function to Run on Start
+@click.command()
+@click.option('-f', PREFIX_ARGS + DebControl.CONFIG_FILE_ARG, type=click.Path(exists=True, file_okay=True))
+@click.option('-c', PREFIX_ARGS + RAW_ARGS, type=(str, str), multiple=True)
+def main(file, config):
+    print("Debian Control File Builder:")
+    if file:
+        gen = DebControl(file=file)
+    else:
+        print("Configuration Data from Inputted Arguments")
+        temp_dict = dict()
+        for pair in config:
+            key = pair[0]
+            content = pair[1]
+            temp_dict[key] = content
+            print("\t* " + key + ": " + content)
+
+        gen = DebControl(**temp_dict)
+
+    gen.build_control_file()
+
+
+# Ensures Main Function is to be run first
+if __name__ == "__main__":
+    main()
