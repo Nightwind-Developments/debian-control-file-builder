@@ -1,8 +1,6 @@
-Package: JourneyEye
-Version: 1.1.0
+Package: PackageName
+Version: v0.0.0
 Architecture: armhf
-Essential: no
-Priority: optional
-Depends: libopencv-videoio4.2 libgtkmm-3.0-1v5 ffmpeg v4l-utils
-Maintainer: Nightwind Future Industries Limited (NZ)
-Description: A video recorder that records from two cameras to create a combined Picture-In-Picture video.
+Maintainer: A. Main-Tainer
+Description: This is just a sample control file for a Debian package
+Depends: nano, build-essential

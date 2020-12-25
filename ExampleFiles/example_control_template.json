@@ -1,0 +1,7 @@
+{
+  "Package": "PackageName",
+  "Version": "v0.0.0",
+  "Architecture": "armhf",
+  "Maintainer": "A. Main-Tainer",
+  "Description": "This is just a sample control file for a Debian package"
+}
