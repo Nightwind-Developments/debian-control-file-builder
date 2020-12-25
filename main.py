@@ -8,8 +8,10 @@ import click
 APP_NAME = "Debian Control File Builder"
 APP_AUTHOR = "Nightwind Developments"
 
+# Important Constants
 PREFIX_ARGS = "--"
 RAW_ARGS = "config"
+OUTPUT_ARG = "output"
 
 
 # Makes a new directory if it does not exist
@@ -140,7 +142,8 @@ class DebControl:
 @click.option('-f', PREFIX_ARGS + DebControl.CONFIG_FILE_ARG, type=click.Path(exists=True, file_okay=True))
 @click.option('-df', PREFIX_ARGS + DebControl.DEP_FILE_ARG, type=click.Path(exists=True, file_okay=True))
 @click.option('-c', PREFIX_ARGS + RAW_ARGS, type=(str, str), multiple=True)
-def main(file, config, deps_file):
+@click.option('-o', PREFIX_ARGS + OUTPUT_ARG, type=click.Path(), default=DebControl.OUTPUT_DEFAULT)
+def main(file, config, deps_file, output):
     print("'{}' by {}".format(APP_NAME, APP_AUTHOR))
     if file:
         gen = DebControl(file=file)
