@@ -25,9 +25,12 @@ case $key in
 esac
 done
 
-echo "Arguments Read from Entrypoint Script:"
+echo "\nArguments Read from Entrypoint Script:"
 echo "CONFIGURATION FILE  = ${DEB_CONFIG_FILE}"
 echo "DEPENDENCY FILE     = ${DEB_DEPS_FILE}"
 
 echo "\nCurrent Runtime Directory:"
 ls -la .
+
+echo "Running Debian Control File Builder"
+dcb -f ${DEB_CONFIG_FILE} -df ${DEB_DEPS_FILE}
