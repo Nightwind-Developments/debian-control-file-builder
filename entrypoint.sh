@@ -50,19 +50,21 @@ esac
 done
 
 # Lists the Arguments that were found
-echo "\nArguments Read from Entrypoint Script:"
+echo ""
+echo "Arguments Read from Entrypoint Script:"
 echo "CONFIGURATION FILE  = ${DEB_CONFIG_FILE}"
 echo "DEPENDENCY FILE     = ${DEB_DEPS_FILE}"
 echo "CONTROL FILE OUTPUT = ${DEB_CTRL_OUT}"
 
-echo "Running Debian Control File Builder"
+echo ""
+echo "Running Debian Control File Builder:"
 DCB_ARGS="-f ${DEB_CONFIG_FILE} -df ${DEB_DEPS_FILE}"
 # Appends output path to arguments variable if one is provided
 if ${DEB_CTRL_OUT} ; then
   DCB_ARGS="${DCB_ARGS} -o ${DEB_CTRL_OUT}"
 fi
 # Runs the Debian Control File Generator, Reports if it was Successful
-if dcb ${DCB_ARGS} ; then
+if dcb "${DCB_ARGS}" ; then
   echo "Success"
   echo "::set-output name=control_file_path::${DEB_CTRL_OUT}/control"
 else
