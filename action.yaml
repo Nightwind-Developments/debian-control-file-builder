@@ -31,5 +31,5 @@ runs:
     - ${{ inputs.config-file }}
     - -df
     - ${{ inputs.deps-file }}
-    - o
+    - -o
     - ${{ inputs.output-path }}
