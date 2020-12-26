@@ -33,4 +33,8 @@ echo "\nCurrent Runtime Directory:"
 ls -la .
 
 echo "Running Debian Control File Builder"
-dcb -f ${DEB_CONFIG_FILE} -df ${DEB_DEPS_FILE}
+if dcb -f ${DEB_CONFIG_FILE} -df ${DEB_DEPS_FILE} ; then
+  echo "Running App Succeeded"
+else
+  echo "Running App Failed"
+fi
