@@ -12,7 +12,7 @@ Further Information:
 ## Usage
 Here is a simple example of how you can use this Action in your Workflow:
 ### Simple Workflow
-```Common Workflow Language
+```ActionScript
         # Generate Debian control File
       - name: Generate Debian control File
         uses: 
