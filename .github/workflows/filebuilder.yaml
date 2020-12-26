@@ -25,5 +25,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: generated-control-file
-          path: ${{ steps.docker-container.outputs.control_file_path }}
+          path: "${{ steps.docker-container.outputs.control_file_path }}"
           if-no-files-found: error
