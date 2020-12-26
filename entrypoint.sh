@@ -46,7 +46,7 @@ fi
 # Runs the Debian Control File Generator, Reports if it was Successful
 if dcb ${DCB_ARGS} ; then
   echo "Success"
-  echo "::set-output name=output-path::${DEB_CTRL_OUT}/control"
+  echo "::set-output name=control_file_path::${DEB_CTRL_OUT}/control"
 else
   echo "App Failed"
 fi
