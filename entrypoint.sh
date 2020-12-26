@@ -28,3 +28,6 @@ done
 echo "Arguments Read from Entrypoint Script:"
 echo "CONFIGURATION FILE  = ${DEB_CONFIG_FILE}"
 echo "DEPENDENCY FILE     = ${DEB_DEPS_FILE}"
+
+export DEB_CONFIG_FILE=${DEB_CONFIG_FILE}
+export DEB_DEPS_FILE=${DEB_DEPS_FILE}
