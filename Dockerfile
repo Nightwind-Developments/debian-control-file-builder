@@ -10,3 +10,7 @@ RUN apt-get update
 RUN apt-get install -y python3 python3-pip
 
 RUN file="$(ls -1)" && echo $file
+
+RUN echo "Arguments Read from Entrypoint Script:" \
+&& echo "CONFIGURATION FILE  = ${DEB_CONFIG_FILE}" \
+&& echo "DEPENDENCY FILE     = ${DEB_DEPS_FILE}"

@@ -25,5 +25,6 @@ case $key in
 esac
 done
 
+echo "Arguments Read from Entrypoint Script:"
 echo "CONFIGURATION FILE  = ${DEB_CONFIG_FILE}"
 echo "DEPENDENCY FILE     = ${DEB_DEPS_FILE}"
