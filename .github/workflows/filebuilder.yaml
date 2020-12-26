@@ -1,4 +1,4 @@
-name: Debian-Control-File-Builder
+name: Debian-Control-File-Build-Example
 
 on:
   push:
@@ -14,8 +14,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
     
-      - name: Action Test
+      - name: Build Dockerfile Container & Run App in it
         uses: ./
+        id: docker-container
         with:
           config-file: 'ExampleFiles/example_control_template.json'
           deps-file: 'ExampleFiles/product_deps.txt'
@@ -24,5 +25,5 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: generated-control-file
-          path: output/control
+          path: ${{ steps.docker-container.outputs.control_file_path }}
           if-no-files-found: error
