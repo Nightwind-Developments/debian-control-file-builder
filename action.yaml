@@ -14,10 +14,14 @@ inputs:
     description: 'Path to the file with the list of dependencies to include in the generated control file'
     required: false
   # Desired Output Path
-  output:
+  output-path:
     description: 'The path to where the generated control file will be saved'
     required: false
     default: "${{ github.workspace }}/output/"
+
+outputs:
+  control_file_path:
+    description: 'The configured path where the generated control file is saved'
 
 runs:
   using: 'docker'
@@ -25,5 +29,7 @@ runs:
   args:
     - -f
     - ${{ inputs.config-file }}
-    - -d
+    - -df
     - ${{ inputs.deps-file }}
+    - o
+    - ${{ inputs.output-path }}
