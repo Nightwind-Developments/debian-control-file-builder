@@ -8,3 +8,4 @@ ENTRYPOINT ["/entrypoint.sh"]
 
 RUN apt-get update
 RUN apt-get install -y python3 python3-pip
+RUN ln -s python3 /usr/bin/python
