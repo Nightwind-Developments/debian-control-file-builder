@@ -1,5 +1,21 @@
 #!/usr/bin/env python
 
+#  Copyright (C) 2020  Nightwind Future Industries Ltd. (NZ)
+#
+#  This program is free software: you can redistribute it and/or modify
+#  it under the terms of the GNU Lesser General Public License as published by
+#  the Free Software Foundation, either version 3 of the License,
+#  or any later version.
+#
+#  This program is distributed in the hope that it will be useful,
+#  but WITHOUT ANY WARRANTY; without even the implied warranty of
+#  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#  GNU Lesser General Public License for more details.
+#
+#  You should have received a copy of the GNU Lesser General Public License
+#  along with this program.
+#  If not, see <https://www.gnu.org/licenses/>.
+
 import json
 import os
 import shutil
@@ -8,7 +24,11 @@ import click
 
 # App Details
 APP_NAME = "Debian Control File Builder"
-APP_AUTHOR = "Nightwind Developments"
+APP_AUTHOR = "Nightwind Future Industries Limited"
+APP_TITLE = "{} - Copyright (C) 2020 {}".format(APP_NAME, APP_AUTHOR)
+APP_LICENSE_1 = "This program comes with ABSOLUTELY NO WARRANTY"
+APP_LICENSE_2 = "This is free software and you are welcome to redistribute it under certain conditions."
+APP_LICENSE_3 = "For more information, run this program with the following arguments '-l' or '--license'"
 
 # Important Constants
 PREFIX_ARGS = "--"
@@ -146,7 +166,7 @@ class DebControl:
 @click.option('-c', PREFIX_ARGS + RAW_ARGS, type=(str, str), multiple=True)
 @click.option('-o', PREFIX_ARGS + OUTPUT_ARG, type=click.Path(), default=DebControl.OUTPUT_DEFAULT)
 def main(file, config, deps_file, output):
-    print("'{}' by {}".format(APP_NAME, APP_AUTHOR))
+    print(APP_TITLE)
     if file:
         gen = DebControl(file=file)
     elif config:
