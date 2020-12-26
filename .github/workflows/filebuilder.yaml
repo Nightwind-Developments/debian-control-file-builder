@@ -20,6 +20,9 @@ jobs:
         with:
           config-file: 'ExampleFiles/example_control_template.json'
           deps-file: 'ExampleFiles/product_deps.txt'
+          
+      - name: Prints Output File Path
+        run: echo "${{ steps.docker-container.outputs.control_file_path }}"
         
       - name: Upload Generated Control File
         uses: actions/upload-artifact@v2
