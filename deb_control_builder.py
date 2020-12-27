@@ -190,7 +190,11 @@ def main(file, config, deps_file, output):
     if deps_file:
         gen.parse_deps_file(deps_file)
 
-    gen.build_control_file(output)
+    if output == "":
+        des_output = DebControl.OUTPUT_DEFAULT
+    else:
+        des_output = output
+    gen.build_control_file(des_output)
 
 
 # Ensures Main Function is to be run first
