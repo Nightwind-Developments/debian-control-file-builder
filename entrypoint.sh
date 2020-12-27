@@ -60,7 +60,7 @@ echo ""
 echo "Running Debian Control File Builder:"
 DCB_ARGS="-f ${DEB_CONFIG_FILE} -df ${DEB_DEPS_FILE}"
 # Appends output path to arguments variable if one is provided
-if ${DEB_CTRL_OUT} ; then
+if [ ! -z ${DEB_CTRL_OUT} ] ; then
   DCB_ARGS="${DCB_ARGS} -o ${DEB_CTRL_OUT}"
 fi
 # Runs the Debian Control File Generator, Reports if it was Successful
