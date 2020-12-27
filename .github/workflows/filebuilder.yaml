@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Build Dockerfile Container & Run App in it
-        uses: Nightwind-Developments/debian-control-file-builder@1.0.0
+        uses: Nightwind-Developments/debian-control-file-builder@1.0.1
         id: container
         with:
           config-file: 'ExampleFiles/example_control_template.json'
