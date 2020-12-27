@@ -23,6 +23,9 @@ jobs:
           
       - name: Prints Output File Path
         run: echo "${{ steps.container.outputs.control_file_path }}"
+
+      - name: Confirms Generated control File is Present
+        run: ls ${{ steps.container.outputs.control_file_path }}
         
       - name: Upload Generated Control File
         uses: actions/upload-artifact@v2
