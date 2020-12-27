@@ -139,7 +139,7 @@ class DebControl:
             exit(-2)
 
     # Builds Debian Control File
-    def build_control_file(self, output_path=OUTPUT_DEFAULT):
+    def build_control_file(self, output_path):
         mkdir_if_not_exist(output_path)
         output_path_full = output_path + self.CTRL_FILE_NAME
         build_file = open(output_path_full, "w")
@@ -168,6 +168,7 @@ class DebControl:
 @click.option('-c', PREFIX_ARGS + RAW_ARGS, type=(str, str), multiple=True)
 @click.option('-o', PREFIX_ARGS + OUTPUT_ARG, type=click.Path(), default=DebControl.OUTPUT_DEFAULT)
 def main(file, config, deps_file, output):
+
     print(APP_TITLE)
     if file:
         gen = DebControl(file=file)
@@ -189,7 +190,7 @@ def main(file, config, deps_file, output):
     if deps_file:
         gen.parse_deps_file(deps_file)
 
-    gen.build_control_file()
+    gen.build_control_file(output)
 
 
 # Ensures Main Function is to be run first
