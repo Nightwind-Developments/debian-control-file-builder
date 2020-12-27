@@ -196,7 +196,6 @@ def main(file, config, deps_file, output):
         gen.build_control_file(output)
 
 
-
 # Ensures Main Function is to be run first
 if __name__ == "__main__":
     main()
