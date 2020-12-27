@@ -34,8 +34,8 @@ jobs:
           path: "${{ steps.container.outputs.control_file_path }}"
           if-no-files-found: error
 
-  external-deb-control-file-build:
-    name: External Action - Generate Debian Package
+  public-deb-control-file-build:
+    name: Public Action - Generate Debian Package
     runs-on: ubuntu-20.04
 
     steps:
@@ -58,6 +58,6 @@ jobs:
       - name: Upload Generated Control File
         uses: actions/upload-artifact@v2
         with:
-          name: locally-generated-control-file
+          name: public-generated-control-file
           path: "${{ steps.container.outputs.control_file_path }}"
           if-no-files-found: error
