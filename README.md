@@ -19,6 +19,9 @@ generate Debian Packages.
 *Debian Control File Builder* is ideal for applications that require a `control` to be dynamically generated, such as 
 generating a Debian Package as part of an automated release with CI/CD.
 
+This GitHub Action and the software included is designed to complement another one of our projects, 
+[Debian Packer](https://github.com/Nightwind-Developments/debian-packer).
+
 Further Information:
 * [Debian Control File Specification](https://www.debian.org/doc/debian-policy/ch-controlfields.html)
 
