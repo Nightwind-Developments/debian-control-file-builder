@@ -1,11 +1,11 @@
-name: Release Build Example
+name: Release Job
 
 on:
   release:
   workflow_dispatch:
 
 jobs:
-  external-deb-control-file-build:
+  release-job:
     name: Generate Debian Package as External Action
     runs-on: ubuntu-20.04
 
@@ -15,23 +15,3 @@ jobs:
 
       - name: Latest tag
         uses: EndBug/latest-tag@latest
-
-      - name: Build Dockerfile Container & Run App in it
-        uses: Nightwind-Developments/debian-control-file-builder@latest
-        id: container
-        with:
-          config-file: 'ExampleFiles/example_control_template.json'
-          deps-file: 'ExampleFiles/product_deps.txt'
-
-      - name: Prints Output File Path
-        run: echo "${{ steps.container.outputs.control_file_path }}"
-
-      - name: Confirms Generated control File is Present
-        run: ls ${{ steps.container.outputs.control_file_path }}
-
-      - name: Upload Generated Control File
-        uses: actions/upload-artifact@v2
-        with:
-          name: externally-generated-control-file
-          path: "${{ steps.container.outputs.control_file_path }}"
-          if-no-files-found: error
