@@ -67,7 +67,6 @@ fi
 echo "Parameters: ${DCB_ARGS}"
 if dcb ${DCB_ARGS} ; then
   echo "Success"
-  echo "::set-output name=control_file_path::${DEB_CTRL_OUT}/control"
 else
   echo "App Failed"
 fi

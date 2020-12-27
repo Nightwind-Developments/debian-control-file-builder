@@ -158,6 +158,8 @@ class DebControl:
         for i in self.OTHER_DATA_KEYS:
             build_file.write(self.generate_line_from_data(i))
 
+        print("::set-output name=control_file_path::" + output_path_full)
+
 
 # Main Function to Run on Start
 @click.command()
