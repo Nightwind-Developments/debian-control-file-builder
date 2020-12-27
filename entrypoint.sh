@@ -69,4 +69,5 @@ if dcb ${DCB_ARGS} ; then
   echo "Success"
 else
   echo "App Failed"
+  exit 1
 fi
