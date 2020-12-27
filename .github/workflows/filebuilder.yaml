@@ -22,11 +22,11 @@ jobs:
           deps-file: 'ExampleFiles/product_deps.txt'
           
       - name: Prints Output File Path
-        run: echo "${{ steps.container.outputs.output_path }}"
+        run: echo "${{ steps.container.outputs.control_file_path }}"
         
       - name: Upload Generated Control File
         uses: actions/upload-artifact@v2
         with:
           name: generated-control-file
-          path: "${{ steps.container.outputs.output_path }}"
+          path: "${{ steps.container.outputs.control_file_path }}"
           if-no-files-found: error
