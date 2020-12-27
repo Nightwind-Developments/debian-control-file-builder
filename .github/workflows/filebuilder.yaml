@@ -30,7 +30,7 @@ jobs:
       - name: Upload Generated Control File
         uses: actions/upload-artifact@v2
         with:
-          name: generated-control-file
+          name: externally-generated-control-file
           path: "${{ steps.container.outputs.control_file_path }}"
           if-no-files-found: error
 
@@ -58,6 +58,6 @@ jobs:
       - name: Upload Generated Control File
         uses: actions/upload-artifact@v2
         with:
-          name: generated-control-file
+          name: locally-generated-control-file
           path: "${{ steps.container.outputs.control_file_path }}"
           if-no-files-found: error
