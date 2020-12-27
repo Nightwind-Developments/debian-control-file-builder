@@ -139,7 +139,7 @@ class DebControl:
             exit(-2)
 
     # Builds Debian Control File
-    def build_control_file(self, output_path):
+    def build_control_file(self, output_path=OUTPUT_DEFAULT):
         mkdir_if_not_exist(output_path)
         output_path_full = output_path + self.CTRL_FILE_NAME
         build_file = open(output_path_full, "w")
@@ -191,10 +191,10 @@ def main(file, config, deps_file, output):
         gen.parse_deps_file(deps_file)
 
     if output == "":
-        des_output = DebControl.OUTPUT_DEFAULT
+        gen.build_control_file()
     else:
-        des_output = output
-    gen.build_control_file(des_output)
+        gen.build_control_file(output)
+
 
 
 # Ensures Main Function is to be run first
