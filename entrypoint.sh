@@ -64,6 +64,7 @@ if ${DEB_CTRL_OUT} ; then
   DCB_ARGS="${DCB_ARGS} -o ${DEB_CTRL_OUT}"
 fi
 # Runs the Debian Control File Generator, Reports if it was Successful
+echo "Parameters: ${DCB_ARGS}"
 if dcb "${DCB_ARGS}" ; then
   echo "Success"
   echo "::set-output name=control_file_path::${DEB_CTRL_OUT}/control"
