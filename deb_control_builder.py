@@ -73,7 +73,7 @@ class DebControl:
     CTRL_FILE_NAME = "control"
 
     # Default Paths
-    OUTPUT_DEFAULT = "output"
+    OUTPUT_DEFAULT = "output/"
 
     # Keywords
     DEPENDS_KEYWORD = "Depends"
