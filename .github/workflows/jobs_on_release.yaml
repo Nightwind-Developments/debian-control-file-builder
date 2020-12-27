@@ -1,4 +1,4 @@
-name: Release Job
+name: Jobs on Release Release
 
 on:
   release:
@@ -6,12 +6,12 @@ on:
 
 jobs:
   release-job:
-    name: Generate Debian Package as External Action
+    name: Release Workflows
     runs-on: ubuntu-20.04
 
     steps:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Latest tag
+      - name: Latest tag Applier
         uses: EndBug/latest-tag@latest
