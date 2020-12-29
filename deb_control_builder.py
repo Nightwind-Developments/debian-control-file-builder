@@ -74,7 +74,7 @@ class DebControl:
     CTRL_FILE_NAME = "control"
 
     # Default Paths
-    OUTPUT_DEFAULT = "output/"
+    OUTPUT_DEFAULT = "output"
 
     # Keywords
     DEPENDS_KEYWORD = "Depends"
@@ -82,6 +82,7 @@ class DebControl:
     # Commonly Used Syntax within File
     COLON = ": "
     COMMA = ", "
+    SLASH = "/"
 
     # Constant Data Keys
     MK_PACKAGE = 0
@@ -151,6 +152,9 @@ class DebControl:
 
     # Builds Debian Control File
     def build_control_file(self, output_path=OUTPUT_DEFAULT):
+        # Adds a slash to an end of a path if it doesn't have one, to enforce it being a directory
+        if output_path[-1] != self.SLASH:
+            output_path += self.SLASH
         mkdir_if_not_exist(output_path)
         output_path_full = output_path + self.CTRL_FILE_NAME
         build_file = open(output_path_full, "w")
