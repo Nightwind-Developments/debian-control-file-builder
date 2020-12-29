@@ -6,8 +6,8 @@ on:
   workflow_dispatch:
   
 jobs:
-  local-deb-control-file-build:
-    name: Local Action - Generate Debian Package
+  local-deb-control-file-build-1:
+    name: Local Action - Generate Debian Package 1
     runs-on: ubuntu-20.04
 
     steps:
@@ -30,12 +30,41 @@ jobs:
       - name: Upload Generated Control File
         uses: actions/upload-artifact@v2
         with:
-          name: locally-generated-control-file
+          name: locally-generated-control-file-1
           path: "${{ steps.container.outputs.control_file_path }}"
           if-no-files-found: error
 
-  public-deb-control-file-build:
-    name: Public Action - Generate Debian Package
+  local-deb-control-file-build-2:
+    name: Local Action - Generate Debian Package 2 (Case Insensitive JSON Keys)
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build Dockerfile Container & Run App in it
+        uses: ./
+        id: container
+        with:
+          config-file: 'ExampleFiles/example_control_template_cap_key.json'
+          deps-file: 'ExampleFiles/product_deps.txt'
+          case-sensitive-keys: 'false'
+
+      - name: Prints Output File Path
+        run: echo "${{ steps.container.outputs.control_file_path }}"
+
+      - name: Confirms Generated control File is Present
+        run: ls ${{ steps.container.outputs.control_file_path }}
+
+      - name: Upload Generated Control File
+        uses: actions/upload-artifact@v2
+        with:
+          name: locally-generated-control-file-2
+          path: "${{ steps.container.outputs.control_file_path }}"
+          if-no-files-found: error
+
+  public-deb-control-file-build-1:
+    name: Public Action - Generate Debian Package 1
     runs-on: ubuntu-20.04
 
     steps:
@@ -58,6 +87,35 @@ jobs:
       - name: Upload Generated Control File
         uses: actions/upload-artifact@v2
         with:
-          name: public-generated-control-file
+          name: public-generated-control-file-1
+          path: "${{ steps.container.outputs.control_file_path }}"
+          if-no-files-found: error
+
+  public-deb-control-file-build-2:
+    name: Public Action - Generate Debian Package 2 (Case Insensitive JSON Keys)
+    runs-on: ubuntu-20.04
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Build Dockerfile Container & Run App in it
+        uses: Nightwind-Developments/debian-control-file-builder@latest
+        id: container
+        with:
+          config-file: 'ExampleFiles/example_control_template_cap_key.json'
+          deps-file: 'ExampleFiles/product_deps.txt'
+          case-sensitive-keys: 'false'
+
+      - name: Prints Output File Path
+        run: echo "${{ steps.container.outputs.control_file_path }}"
+
+      - name: Confirms Generated control File is Present
+        run: ls ${{ steps.container.outputs.control_file_path }}
+
+      - name: Upload Generated Control File
+        uses: actions/upload-artifact@v2
+        with:
+          name: public-generated-control-file-2
           path: "${{ steps.container.outputs.control_file_path }}"
           if-no-files-found: error
