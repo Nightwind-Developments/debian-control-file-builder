@@ -43,7 +43,7 @@ jobs:
     steps:
         # Generate Debian control File
       - name: Generate Debian control File
-        uses: 
+        uses: Nightwind-Developments/debian-control-file-builder@latest
         id: deb_control
         # Input Parameters
         with:
