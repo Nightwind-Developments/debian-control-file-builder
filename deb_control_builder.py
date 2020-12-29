@@ -34,6 +34,7 @@ APP_LICENSE_3 = "For more information, run this program with the following argum
 PREFIX_ARGS = "--"
 RAW_ARGS = "config"
 OUTPUT_ARG = "output"
+CSK_ARG = "case-sensitive-keys"
 
 
 # Makes a new directory if it does not exist
@@ -92,7 +93,7 @@ class DebControl:
     OTHER_DATA_KEYS = list()
 
     # Class Constructor
-    def __init__(self, **named_args):
+    def __init__(self, csk=True, **named_args):
 
         is_config_file = self.CONFIG_FILE_ARG in named_args
 
@@ -105,6 +106,16 @@ class DebControl:
         else:
             temp_dict_keys = named_args.keys()
             temp_dict = named_args
+
+        # Autocorrects Keys to be a Capitalised First Letter, Remaining Lowercase
+        if not csk:
+            new_temp_dict = dict()
+            for old_key in temp_dict_keys:
+                new_key = old_key.lower().capitalize()
+                item = temp_dict[old_key]
+                new_temp_dict[new_key] = item
+            temp_dict = new_temp_dict
+            temp_dict_keys = new_temp_dict.keys()
 
         # Ensures Imported List Contains at minimum the Mandatory Keys
         mk_not_found = list()
@@ -167,11 +178,12 @@ class DebControl:
 @click.option('-df', PREFIX_ARGS + DebControl.DEP_FILE_ARG, type=click.Path(exists=True, file_okay=True))
 @click.option('-c', PREFIX_ARGS + RAW_ARGS, type=(str, str), multiple=True)
 @click.option('-o', PREFIX_ARGS + OUTPUT_ARG, type=click.Path(), default=DebControl.OUTPUT_DEFAULT)
-def main(file, config, deps_file, output):
+@click.option('-csk', PREFIX_ARGS + CSK_ARG, type=click.BOOL)
+def main(file, config, deps_file, output, case_sensitive_keys):
 
     print(APP_TITLE)
     if file:
-        gen = DebControl(file=file)
+        gen = DebControl(case_sensitive_keys, file=file)
     elif config:
         print("Configuration Data from Inputted Arguments:")
         temp_dict = dict()
@@ -194,6 +206,8 @@ def main(file, config, deps_file, output):
         gen.build_control_file()
     else:
         gen.build_control_file(output)
+
+    print("Successful Run")
 
 
 # Ensures Main Function is to be run first
