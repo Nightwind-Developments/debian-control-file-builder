@@ -42,6 +42,11 @@ case $key in
     shift # past argument
     shift # past value
     ;;
+    -csk|--case-sensitive-keys)
+    CSK="$data"
+    shift # past argument
+    shift # past value
+    ;;
     *)
       echo "ERROR: Invalid parameter key (\"$key\")"
       usage
@@ -55,10 +60,11 @@ echo "Arguments Read from Entrypoint Script:"
 echo "CONFIGURATION FILE  = ${DEB_CONFIG_FILE}"
 echo "DEPENDENCY FILE     = ${DEB_DEPS_FILE}"
 echo "CONTROL FILE OUTPUT = ${DEB_CTRL_OUT}"
+echo "CASE SENSITIVE JSON KEYS = ${CSK}"
 
 echo ""
 echo "Running Debian Control File Builder:"
-DCB_ARGS="-f ${DEB_CONFIG_FILE} -df ${DEB_DEPS_FILE}"
+DCB_ARGS="-f ${DEB_CONFIG_FILE} -df ${DEB_DEPS_FILE} -csk ${CSK}"
 # Appends output path to arguments variable if one is provided
 if [ ! -z ${DEB_CTRL_OUT} ] ; then
   DCB_ARGS="${DCB_ARGS} -o ${DEB_CTRL_OUT}"

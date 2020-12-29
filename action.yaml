@@ -9,6 +9,11 @@ inputs:
   config-file:
     description: 'Path to configuration file in JSON format'
     required: true
+  # Case Sensitive Keys Boolean
+  case-sensitive-keys:
+    description: 'True if keys are exactly in the right case, False if keys are to be converted to first letter capitalise, remaining characters lowercase'
+    required: false
+    default: 'true'
   # Dependency File Path
   deps-file:
     description: 'Path to the file with the list of dependencies to include in the generated control file'
@@ -33,3 +38,5 @@ runs:
     - ${{ inputs.deps-file }}
     - -o
     - ${{ inputs.output-path }}
+    - -csk
+    - ${{ inputs.case-sensitive-keys }}
