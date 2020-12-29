@@ -22,7 +22,7 @@ inputs:
   output-path:
     description: 'The path to where the generated control file will be saved'
     required: false
-    default: "${{ github.workspace }}/output"
+    default: "output"
 
 outputs:
   control_file_path:
