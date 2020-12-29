@@ -72,3 +72,6 @@ jobs:
           name: public-generated-control-file-2
           path: "${{ steps.container.outputs.control_file_path }}"
           if-no-files-found: error
+
+      - name: Test Output Path Parameter
+        run: ls ${{ steps.container.outputs.control_file_path }}
