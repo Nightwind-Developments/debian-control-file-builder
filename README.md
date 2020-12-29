@@ -1,6 +1,7 @@
 # Debian Control File Builder
 
 ![Build Example](https://github.com/Nightwind-Developments/debian-control-file-builder/workflows/Build%20Example/badge.svg?branch=main)
+![Public Release Build](https://github.com/Nightwind-Developments/debian-control-file-builder/workflows/Public%20Release%20Build/badge.svg?branch=main)
 
 ## Contents
 1. [Description](#description)
