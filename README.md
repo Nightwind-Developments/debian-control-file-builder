@@ -54,6 +54,8 @@ jobs:
           deps-file: 'path/to/product_dependencies_list_file.txt'
           # Optional: Custom Output Directory
           output-path: 'desired/path/to/generated/file/named/control'
+          # Optional: Case Sensitive JSON Keys
+          case-sensitive-keys: 'true'
         
         # Upload the Generated control File as an Artifact
       - name: Upload Generated Control File
@@ -70,6 +72,7 @@ jobs:
 | `config-file` | String | Yes      |                                   | Path to configuration file in JSON format |
 | `deps-file`   | String | No       |                                   | Path to the file with the list of dependencies to include in the generated control file |
 | `output-path` | String | No       | `${{ github.workspace }}/output/` | The path to where the generated control file will be saved |
+| `case-sensitive-keys` | String | No | 'true' | Signals whether the JSON keys of the template file require conversion to Debian's Standards (Capitalised first letter, remaining letters lowercase). Use 'true' if keys are already in correct form and conversion is NOT required, 'false' if conversion IS required. |
 
 Example use case for input parameters:
 ```yaml
