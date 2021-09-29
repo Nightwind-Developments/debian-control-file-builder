@@ -143,7 +143,7 @@ Depends: nano, build-essential
 
 ## Contributors
 The following developers have contributed to this repository:
-* [Rowan Rathod](https://github.com/RedHoodedWraith) - rowan@nightwind-developments.co.nz
+* [Asami De Almeida](https://github.com/RedHoodedWraith) - theengineer@redhoodedwraith.com
 
 ## Copyright & Licensing
 Copyright (C) 2020  Nightwind Future Industries Ltd. (NZ) <https://nightwind-developments.co.nz/>
