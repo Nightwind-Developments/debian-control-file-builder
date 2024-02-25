@@ -173,8 +173,11 @@ class DebControl:
         for i in self.OTHER_DATA_KEYS:
             build_file.write(self.generate_line_from_data(i))
 
-        print("::set-output name=control_file_path::" + output_path_full)
-
+        # Sets a GitHub Actions Output variable
+        gh_outputs_file_path = os.getenv("GITHUB_OUTPUT")
+        gh_outputs_file = open(gh_outputs_file_path, "a")
+        gh_outputs_file.write("control_file_path=" + output_path_full + "\n")
+        gh_outputs_file.close()
 
 # Main Function to Run on Start
 @click.command()
