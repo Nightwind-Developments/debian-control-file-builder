@@ -61,7 +61,7 @@ jobs:
         
         # Upload the Generated control File as an Artifact
       - name: Upload Generated Control File
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: generated-control-file
           path: "${{ steps.deb_control.outputs.control_file_path }}"
