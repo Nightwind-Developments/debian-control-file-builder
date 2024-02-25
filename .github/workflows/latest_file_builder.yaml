@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
     
       - name: Build Dockerfile Container & Run App in it
         uses: ./
@@ -28,7 +28,7 @@ jobs:
         run: ls ${{ steps.container.outputs.control_file_path }}
         
       - name: Upload Generated Control File
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: locally-generated-control-file-1
           path: "${{ steps.container.outputs.control_file_path }}"
@@ -40,7 +40,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Build Dockerfile Container & Run App in it
         uses: ./
@@ -57,7 +57,7 @@ jobs:
         run: ls ${{ steps.container.outputs.control_file_path }}
 
       - name: Upload Generated Control File
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: locally-generated-control-file-2
           path: "${{ steps.container.outputs.control_file_path }}"
