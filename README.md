@@ -148,8 +148,7 @@ The following developers have contributed to this repository:
 * [Asami De Almeida](https://github.com/RedHoodedWraith) - theengineer@redhoodedwraith.com
 
 ## Copyright & Licensing
-Copyright (C) 2020  Nightwind Future Industries Ltd. (NZ) <https://nightwind-developments.co.nz/>
-<hello@nightwind-developments.co.nz>
+Copyright (C) 2020  Nightwind Developments <hello@nightwind-developments.co.nz>
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as published by
