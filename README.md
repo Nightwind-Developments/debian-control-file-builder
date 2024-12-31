@@ -15,8 +15,6 @@
 
 ## Description
 
-**Note:** The CI/CD tests for this project are unavailable due to the Runner Server no longer being available. If there is demand for this project, they will be brought back up online again.
-
 This GitHub Action and its core application can generate a `control` file that can then be used to 
 generate Debian Packages.
 *Debian Control File Builder* is ideal for applications that require a `control` to be dynamically generated, such as 
