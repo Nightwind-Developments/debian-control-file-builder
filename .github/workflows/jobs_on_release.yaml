@@ -7,7 +7,7 @@ on:
 jobs:
   release-job:
     name: Release Workflows
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout
@@ -18,7 +18,7 @@ jobs:
 
   public-deb-control-file-build-1:
     name: Public Action - Generate Debian Package 1
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout
@@ -46,7 +46,7 @@ jobs:
 
   public-deb-control-file-build-2:
     name: Public Action - Generate Debian Package 2 (Case Insensitive JSON Keys)
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     steps:
       - name: Checkout
