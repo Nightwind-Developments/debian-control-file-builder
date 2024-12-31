@@ -41,7 +41,7 @@ on:
 jobs:
   deb-control-file-build:
     name: Generate Debian Package
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-24.04
 
     steps:
         # Generate Debian control File
